@@ -1,47 +1,72 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import toothImage from'./assets/tooth1.jpeg'
+
 
 function Navbar() {
   return (
-    <nav style={{ padding: "16px", display: "flex", justifyContent: "space-between" }}>
+    <nav>
       <h2>DentCare</h2>
       <div>
-        <Link to="/" style={{ marginRight: "12px" }}>Home</Link>
-        <Link to="/login" style={{ marginRight: "12px" }}>Login</Link>
-        <Link to="/register">Get Started</Link>
+        <Link to="/">Home</Link>
+        <Link to="/login">Login</Link>
+        
       </div>
     </nav>
   );
 }
 
+function StarRating({ rating }) {
+  return <div className="stars">{"★".repeat(rating)}{"☆".repeat(5 - rating)}</div>;
+}
+
 function Home() {
   const reviews = [
-    { name: "Sarah K.", comment: "Booking was fast and easy!", rating: 5 },
-    { name: "James M.", comment: "Very professional dentists.", rating: 4 },
-    { name: "Grace L.", comment: "My records are safely stored.", rating: 5 }
+    { name: "Sarah K.", comment: "Booking was fast and stress-free.", rating: 5 },
+    { name: "James M.", comment: "Very professional dentists and clean clinic.", rating: 4 },
+    { name: "Grace L.", comment: "I love how my records are safely stored.", rating: 5 },
   ];
 
   return (
-    <div className="container">
-      <h1>Book Dental Appointments Easily</h1>
-      <p>Choose services, doctors, and time slots in minutes.</p>
+    <div className="page">
+      {/* HERO */}
+      <section className="hero">
+        <h1>Book Dental Appointments With Confidence</h1>
+        <p>
+          DentCare helps you schedule dental services, choose available doctors,
+          track your medical records, and know the cost before you arrive.
+        </p>
+      </section>
 
-      <h2>Patient Reviews</h2>
-      {reviews.map((r, i) => (
-        <div key={i} className="review">
-          <strong>{r.name}</strong> – {"★".repeat(r.rating)}
-          <p>{r.comment}</p>
-        </div>
-      ))}
+      {/* REVIEWS */}
+      <h2 className="section-title">What Our Patients Say</h2>
+
+      <div className="reviews">
+        {reviews.map((r, i) => (
+          <div key={i} className="review-card">
+            <h4>{r.name}</h4>
+            <StarRating rating={r.rating} />
+            <p>{r.comment}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* CALL TO ACTION */}
+      <div className="cta">
+        <p>Ready to book your dental appointment?</p>
+        <Link to="/register">
+          <button>Get Started</button>
+        </Link>
+      </div>
     </div>
   );
 }
 
 function Login() {
-  return <div className="container"><h2>Login Page</h2></div>;
+  return <div className="page"><h2>Login Page</h2></div>;
 }
 
 function Register() {
-  return <div className="container"><h2>Register Page</h2></div>;
+  return <div className="page"><h2>Register Page</h2></div>;
 }
 
 export default function App() {
